@@ -4,14 +4,21 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y upgrade && \
   apt-get install -y \
   apt-utils \
+  base \
   beef \
   bsdmainutils \
   ca-certificates \
+  cowsay \
   cpio \
   cron \
   curl \
+  dbus \
+  dialog \
   dmidecode \
   dmsetup \
+  fakeroot \
+  file \
+  gcc \
   git \
   hexedit \
   ifupdown \
@@ -24,21 +31,31 @@ RUN apt-get update && apt-get -y upgrade && \
   logrotate \
   lsb-base \
   lshw \
+  lua50 \
+  luajit \
+  make \
+  manpages \
   netbase \
   netcat-openbsd \
   nodejs \
   openssl \
+  patch \
   procps \
   python3 \
   readline-common \
   rsyslog \
   ruby \
+  ruby \
   sensible-utils \
   ssh \
   systemd \
   systemd-sysv \
+  ucf \
+  unzip \
   vim \
+  wamerican \
   wget \
+  whiptail \
   xxd
 
 # Make a user, then copy over the /example directory
