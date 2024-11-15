@@ -1,18 +1,68 @@
 FROM --platform=i386 i386/debian:buster
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get clean && apt-get update && apt-get -y upgrade
-RUN apt-get -y install apt-utils gcc \
-	python3 vim unzip ruby nodejs \
-	fakeroot dbus base whiptail hexedit \
-	patch wamerican ucf manpages \
-	file luajit make lua50 dialog curl \
-	less cowsay netcat-openbsd
-RUN useradd -m luser && echo "luser:password" | chpasswd
+
+RUN apt-get update && apt-get -y upgrade && \
+  apt-get install -y \
+  apt-utils \
+  base \
+  beef \
+  bsdmainutils \
+  ca-certificates \
+  cowsay \
+  cpio \
+  cron \
+  curl \
+  dbus \
+  dialog \
+  dmidecode \
+  dmsetup \
+  fakeroot \
+  file \
+  gcc \
+  git \
+  hexedit \
+  ifupdown \
+  init \
+  iptables \
+  isc-dhcp-client \
+  isc-dhcp-common \
+  kmod \
+  less \
+  logrotate \
+  lsb-base \
+  lshw \
+  lua50 \
+  luajit \
+  make \
+  manpages \
+  netbase \
+  netcat-openbsd \
+  nodejs \
+  openssl \
+  patch \
+  procps \
+  python3 \
+  readline-common \
+  rsyslog \
+  ruby \
+  ruby \
+  sensible-utils \
+  ssh \
+  systemd \
+  systemd-sysv \
+  ucf \
+  unzip \
+  vim \
+  wamerican \
+  wget \
+  whiptail \
+  xxd
+
+# Make a user, then copy over the /example directory
+RUN useradd -m luser && echo "luser:hunter2" | chpasswd
 COPY --chown=luser:luser ./examples /home/luser/examples
 RUN chmod -R +x  /home/luser/examples/lua
-# We set WORKDIR, as this gets extracted by Webvm to be used as the cwd. This is optional.
 WORKDIR /home/luser/
-# We set env, as this gets extracted by Webvm. This is optional.
-ENV HOME="/home/luser" TERM="xterm" luser="luser" SHELL="/bin/bash" EDITOR="vim" LANG="en_US.UTF-8" LC_ALL="C"
-RUN echo 'root:password' | chpasswd
+ENV HOME="/home/luser" TERM="xterm" USER="luser" SHELL="/bin/bash" EDITOR="vim" LANG="en_US.UTF-8" LC_ALL="C"
+RUN echo 'root:hunter2' | chpasswd
 CMD [ "/bin/bash" ]
