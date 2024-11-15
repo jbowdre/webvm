@@ -1,0 +1,51 @@
+FROM --platform=i386 i386/debian:buster
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get -y upgrade && \
+  apt-get install -y \
+  apt-utils \
+  beef \
+  bsdmainutils \
+  ca-certificates \
+  cpio \
+  cron \
+  curl \
+  dmidecode \
+  dmsetup \
+  git \
+  hexedit \
+  ifupdown \
+  init \
+  iptables \
+  isc-dhcp-client \
+  isc-dhcp-common \
+  kmod \
+  less \
+  logrotate \
+  lsb-base \
+  lshw \
+  netbase \
+  netcat-openbsd \
+  nodejs \
+  openssl \
+  procps \
+  python3 \
+  readline-common \
+  rsyslog \
+  ruby \
+  sensible-utils \
+  ssh \
+  systemd \
+  systemd-sysv \
+  vim \
+  wget \
+  xxd
+
+# Make a user, then copy over the /example directory
+RUN useradd -m luser && echo "luser:hunter2" | chpasswd
+COPY --chown=luser:luser ./examples /home/luser/examples
+RUN chmod -R +x  /home/luser/examples/lua
+WORKDIR /home/luser/
+ENV HOME="/home/luser" TERM="xterm" USER="luser" SHELL="/bin/bash" EDITOR="vim" LANG="en_US.UTF-8" LC_ALL="C"
+RUN echo 'root:hunter2' | chpasswd
+CMD [ "/bin/bash" ]
