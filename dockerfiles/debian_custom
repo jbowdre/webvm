@@ -59,10 +59,10 @@ RUN apt-get update && apt-get -y upgrade && \
   xxd
 
 # Make a user, then copy over the /example directory
-RUN useradd -m luser && echo "luser:hunter2" | chpasswd
-COPY --chown=luser:luser ./examples /home/luser/examples
-RUN chmod -R +x  /home/luser/examples/lua
-WORKDIR /home/luser/
-ENV HOME="/home/luser" TERM="xterm" USER="luser" SHELL="/bin/bash" EDITOR="vim" LANG="en_US.UTF-8" LC_ALL="C"
+RUN useradd -m user && echo "user:hunter2" | chpasswd
+COPY --chown=user:user ./examples /home/user/examples
+RUN chmod -R +x  /home/user/examples/lua
+WORKDIR /home/user/
+ENV HOME="/home/user" TERM="xterm" USER="user" SHELL="/bin/bash" EDITOR="vim" LANG="en_US.UTF-8" LC_ALL="C"
 RUN echo 'root:hunter2' | chpasswd
 CMD [ "/bin/bash" ]
